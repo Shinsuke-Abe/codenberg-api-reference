@@ -215,6 +215,46 @@ paths:
             $ref: '#/definitions/OrderList'
         '400':
           description: 入力が受け付けられない場合
+    post:
+      tags:
+        - orders
+      summary: Create new order from template
+      description: テンプレートから注文を作成します。
+      operationId: createOrder
+      parameters:
+        - in: body
+          name: body
+          description: 作成する注文内容を指定します
+          required: true
+          schema:
+            $ref: '#/definitions/CreateOrderRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OrderResult'
+        '400':
+          description: 入力が受け付けられない場合
+        '404':
+          description: リソースがない場合
+        '422':
+          description: 注文情報の形式が正しくありません。
+  '/orders/{id}':
+    get:
+      tags:
+        - orders
+      summary: Get order by Id
+      description: 注文の詳細情報を返します。
+      operationId: getOrderById
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OrderResult'
+        '400':
+          description: 入力が受け付けられない場合
   /user/createWithArray:
     post:
       tags:
@@ -878,6 +918,45 @@ definitions:
         format: int64
       name:
         type: string
+  CreateOrderRequest:
+    type: object
+    properties:
+      template_id:
+        type: integer
+        format: int64
+        description: テンプレートIDを指定します。
+      confirmation:
+        type: boolean
+        description: trueを設定すると実際の登録は行われません。
+      name:
+        type: string
+        description: 宛名
+      pre:
+        type: string
+        desciption: 都道府県名または都道府県id
+      postal_code:
+        type: string
+        description: 郵便番号
+      city:
+        type: string
+        description: 市区町村
+      address_line1:
+        type: string
+        description: 番地
+      address_line2:
+        type: string
+        description: 建物名
+      organization:
+        type: string
+        description: 組織名
+      tel:
+        type: string
+        description: 連絡先電話番号
+      custom_fields:
+        type: array
+        description: 可変領域を指定します。
+        items:
+          $ref: '#/definitions/CustomFieldValue'
   Pet:
     type: object
     required:
