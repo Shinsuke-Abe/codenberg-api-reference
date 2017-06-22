@@ -185,7 +185,7 @@ paths:
       operationId: getFormatById
       produces:
         - application/json
-      response:
+      responses:
         '200':
           description: OK
           schema:
@@ -209,8 +209,12 @@ paths:
           schema:
             $ref: '#/definitions/OrderQuery'
       responses:
-        default:
-          description: successful operation
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OrderList'
+        '400':
+          description: 入力が受け付けられない場合
   /user/createWithArray:
     post:
       tags:
@@ -781,6 +785,99 @@ definitions:
       including_test:
         type: boolean
         default: false
+  OrderList:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int64
+      page:
+        type: integer
+        format: int64
+      per_page:
+        type: integer
+        format: int64
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/OrderResult'
+  OrderResult:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      display_id:
+        type: string
+      printing_fee:
+        type: integer
+        format: int64
+      sub_total:
+        type: integer
+        format: int64
+      consumption_tax:
+        type: integer
+        format: int64
+      delivery_fee:
+        type: integer
+        format: int64
+      total:
+        type: integer
+        format: int64
+      sheets:
+        type: integer
+        format: int64
+      total_number:
+        type: integer
+        format: int64
+      orders:
+        type: array
+  OrderDetail:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      display_id:
+        type: string
+      name:
+        type: string
+      pre:
+        $ref: '#/definitions/Prefecture'
+      postal_code:
+        type: string
+      city:
+        type: string
+      address_line1:
+        type: string
+      address_line2:
+        type: string
+      organization:
+        type: string
+      tel:
+        type: string
+      order_number:
+        type: integer
+        format: int64
+      template_id:
+        type: integer
+        format: int64
+      custom_fields:
+        type: array
+        items:
+          $ref: '#/definitions/CustomFieldValue'
+      status:
+        type: string
+      created_at:
+        type: date-time
+  Prefecture:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
   Pet:
     type: object
     required:
