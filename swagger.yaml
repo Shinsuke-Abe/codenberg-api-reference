@@ -661,24 +661,15 @@ definitions:
         default: 1
       including_private:
         description: 非公開のテンプレートを含めるかどうかを指定します。
-        type: string
-        enum:
-          - true
-          - false
+        type: boolean
         default: false
       including_custom_fields:
         description: 可変領域の情報を含めるかを設定します。
-        type: string
-        enum:
-          - true
-          - false
+        type: boolean
         default: true
       including_formats:
         description: フォーマットの情報を含めるかを設定します。
-        type: string
-        enum:
-          - true
-          - false
+        type: boolean
         default: false
   TemplateList:
     type: object
@@ -830,16 +821,10 @@ definitions:
     type: object
     properties:
       including_custom_fields:
-        type: string
-        enum:
-          - true
-          - false
+        type: boolean
         default: true
       including_formats:
-        type: string
-        enum:
-          - true
-          - false
+        type: boolean
         default: false
   PreviewRequest:
     type: object
