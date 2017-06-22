@@ -192,23 +192,22 @@ paths:
             $ref: '#/definitions/FormatResult'
         '400':
           description: 入力が受け付けられない場合
-  /user:
-    post:
+  /orders:
+    get:
       tags:
         - orders
-      summary: Create user
-      description: This can only be done by the logged in user.
-      operationId: createUser
+      summary: Get order list
+      description: 注文一覧を取得します。
+      operationId: getOrders
       produces:
-        - application/xml
         - application/json
       parameters:
         - in: body
           name: body
-          description: Created user object
+          description: 注文の検索条件を指定します
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/OrderQuery'
       responses:
         default:
           description: successful operation
@@ -739,6 +738,49 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/SelectedPaper'
+  OrderQuery:
+    type: object
+    properties:
+      sort:
+        type: string
+        description: 並び順の基準とする項目を指定します。
+        enum:
+          - id
+          - created_at
+          - status
+          - order_number
+        default: id
+      direction:
+        type: string
+        description: 項目の並び順を指定します。
+        enum:
+          - asc
+          - desc
+        default: desc
+      per_page:
+        type: integer
+        format: int64
+        description: 1ページあたりの取得項目数。最大50件
+        default: 10
+      page:
+        type: integer
+        format: int64
+        description: ページ番号を指定します。
+        default: 1
+      range_key:
+        type: string
+        description: 絞り込みを行う日付を指定します。
+        enum:
+          - created_at
+          - updated_at
+        default: created_at
+      from:
+        type: string
+      to:
+        type: string
+      including_test:
+        type: boolean
+        default: false
   Pet:
     type: object
     required:
