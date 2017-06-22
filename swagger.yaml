@@ -48,6 +48,30 @@ paths:
             $ref: '#/definitions/TemplateList'
         '400':
           description: 入力が受付られない場合
+  '/templates/{template_id}'
+    get:
+      tags:
+        - templates
+      summary: Find template by ID
+      description: 指定したテンプレートの詳細情報を返します。
+      operationId: getTemplateById
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: 結果に含まれる条件を指定します。
+          required: false
+          schema:
+            $ref: '#/definitions/TemplateIncludeInfomations'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/TemplateResult'
+        '400':
+          description: 入力が受け付けられない場合
+  /template_previews:
     post:
       tags:
         - templates
@@ -802,6 +826,21 @@ definitions:
         format: int64
       font:
         type: string
+  TemplateIncludeInfomations:
+    type: object
+    properties:
+      including_custom_fields:
+        type: string
+        enum:
+          - true
+          - false
+        default: true
+      including_formats:
+        type: string
+        enum:
+          - true
+          - false
+        default: false
   Order:
     type: object
     properties:
