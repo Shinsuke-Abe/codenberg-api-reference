@@ -75,29 +75,29 @@ paths:
     post:
       tags:
         - templates
-      summary: Add a new pet to the store
-      description: ''
-      operationId: addPet
-      consumes:
-        - application/json
-        - application/xml
+      summary: Request creating template preview
+      description: 指定したテンプレートのプレビューの生成をリクエストします。
+      operationId: createTemplatePreview
       produces:
-        - application/xml
         - application/json
       parameters:
         - in: body
           name: body
-          description: Pet object that needs to be added to the store
+          description: プレビューの生成条件を指定します。
           required: true
           schema:
-            $ref: '#/definitions/Pet'
+            $ref: '#/definitions/PreviewRequest'
       responses:
-        '405':
-          description: Invalid input
-      security:
-        - petstore_auth:
-            - 'write:pets'
-            - 'read:pets'
+        '202':
+          description: Accepted
+          schema:
+            $ref: '#/definitions/PreviewResponse'
+        '403':
+          description: 認証に失敗した場合
+        '404':
+          description: テンプレートが存在しない場合
+        '422':
+          description: パラメータに不備がある場合
     put:
       tags:
         - templates
@@ -841,6 +841,46 @@ definitions:
           - true
           - false
         default: false
+  PreviewRequest:
+    type: object
+    propreties:
+      template_id:
+        type: string
+      page:
+        type: integer
+        format: int64
+      custom_fields:
+        type: array
+        items:
+          $ref: '#/definitions/CustomFieldValue'
+  CustomFieldValue:
+    type: object
+    properties:
+      id:
+        type: string
+      value:
+        type: string
+  PreviewResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      template_id:
+        type: string
+      generated:
+        type: boolean
+      images:
+        type: array
+        items:
+          type: string
+      error:
+        $ref: '#/definitions/ErrorMessage'
+  ErrorMessage:
+    type: object
+    properties:
+      message:
+        type: string
   Order:
     type: object
     properties:
