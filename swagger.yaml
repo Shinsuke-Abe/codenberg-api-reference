@@ -822,20 +822,25 @@ definitions:
     properties:
       including_custom_fields:
         type: boolean
+        description: 可変領域の情報を含めるかを設定します。
         default: true
       including_formats:
         type: boolean
+        description: フォーマットの情報を含めるかを設定します。
         default: false
   PreviewRequest:
     type: object
     propreties:
       template_id:
         type: string
+        description: テンプレートID
       page:
         type: integer
         format: int64
+        description: プレビューを生成するページを指定します。(0スタートのIndex値)
       custom_fields:
         type: array
+        description: 可変領域を指定します。
         items:
           $ref: '#/definitions/CustomFieldValue'
   CustomFieldValue:
@@ -843,8 +848,10 @@ definitions:
     properties:
       id:
         type: string
+        description: カスタムフィールドID
       value:
         type: string
+        description: テンプレートの可変領域にテキストを設定した時には文字列を指定して下さい。可変領域に画像を設定した時には画像IDか画像ファイル名を指定して下さい。
   PreviewResponse:
     type: object
     properties:
