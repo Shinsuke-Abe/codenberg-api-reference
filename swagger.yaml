@@ -361,6 +361,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/MediaList'
+        '400':
+          description: 入力が受け付けられない場合
   /user/createWithArray:
     post:
       tags:
