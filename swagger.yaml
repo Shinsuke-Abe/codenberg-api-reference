@@ -977,7 +977,8 @@ definitions:
       status:
         type: string
       created_at:
-        type: date-time
+        type: string
+        format: date-time
   Prefecture:
     type: object
     properties:
@@ -1001,7 +1002,7 @@ definitions:
         description: 宛名
       pref:
         type: string
-        desciption: 都道府県名または都道府県id
+        description: 都道府県名または都道府県id
       postal_code:
         type: string
         description: 郵便番号
@@ -1040,7 +1041,7 @@ definitions:
         description: 宛名
       pref:
         type: string
-        desciption: 都道府県名または都道府県id
+        description: 都道府県名または都道府県id
       postal_code:
         type: string
         description: 郵便番号
@@ -1094,9 +1095,11 @@ definitions:
       payment_status:
         type: string
       created_at:
-        type: date-time
+        type: string
+        format: date-time
       updated_at:
-        type: date-time
+        type: string
+        format: date-time
   MediaRequest:
     type: object
     properties:
@@ -1159,7 +1162,8 @@ definitions:
         items:
           $ref: '#/definitions/MediaThumbnail'
       created_at:
-        type: date-time
+        type: string
+        format: date-time
   MediaThumbnail:
     type: object
     properties:
