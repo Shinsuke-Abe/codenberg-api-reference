@@ -48,6 +48,10 @@ paths:
             $ref: '#/definitions/TemplateList'
         '400':
           description: 入力が受付られない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   '/templates/{template_id}'
     get:
       tags:
@@ -71,6 +75,10 @@ paths:
             $ref: '#/definitions/TemplateResult'
         '400':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   /template_previews:
     post:
       tags:
@@ -98,6 +106,10 @@ paths:
           description: テンプレートが存在しない場合
         '422':
           description: パラメータに不備がある場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   '/template_previews/{template_preview_id}':
     get:
       tags:
@@ -116,6 +128,10 @@ paths:
           description: 認証に失敗した場合
         '404':
           description: プレビューが存在しない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   /formats:
     get:
       tags:
@@ -139,6 +155,10 @@ paths:
             $ref: '#/definitions/FormatList'
         '400':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   '/formats/{format_id}':
     get:
       tags:
@@ -155,6 +175,10 @@ paths:
             $ref: '#/definitions/FormatResult'
         '400':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   /orders:
     get:
       tags:
@@ -178,6 +202,10 @@ paths:
             $ref: '#/definitions/OrderList'
         '400':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
     post:
       tags:
         - orders
@@ -202,6 +230,10 @@ paths:
           description: リソースがない場合
         '422':
           description: 注文情報の形式が正しくありません。
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   '/orders/{id}':
     get:
       tags:
@@ -218,6 +250,10 @@ paths:
             $ref: '#/definitions/OrderResult'
         '400':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   '/orders/{order_group_id}/order/{order_id}/status':
     get:
       tags:
@@ -237,6 +273,10 @@ paths:
             $ref: '#/definitions/StatusAndMessage'
         '422':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   '/orders/{order_group_id}/order/{order_id}':
     post:
       tags:
@@ -265,6 +305,10 @@ paths:
             $ref: '#/definitions/ChangeDeliveryAddressResponse'
         '422':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   '/orders/{id}/cancel_status':
     get:
       tags:
@@ -284,6 +328,10 @@ paths:
             $ref: '#/definitions/StatusAndMessage'
         '422':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   '/orders/{id}/cancel':
     put:
       tags:
@@ -303,6 +351,10 @@ paths:
             $ref: '#/definitions/StatusAndMessage'
         '422':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   /media:
     get:
       tags:
@@ -326,6 +378,10 @@ paths:
             $ref: '#/definitions/MediaList'
         '400':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   '/media/{media_id}':
     get:
       tags:
@@ -342,6 +398,10 @@ paths:
             $ref: '#/definitions/MediaDetail'
         '400':
           description: 入力が受け付けられない場合
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
   /prefectures:
     get:
       tags:
@@ -356,18 +416,18 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Prefecture'
+      security:
+        - codenberg_auth:
+          - 'write:print'
+          - 'read:print'
 securityDefinitions:
-  petstore_auth:
+  codenberg_auth:
     type: oauth2
-    authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
-    flow: implicit
+    flow: application
+    tokenUrl: 'https://api.codenberg.io/v1/auth/token'
     scopes:
-      'write:pets': modify pets in your account
-      'read:pets': read your pets
-  api_key:
-    type: apiKey
-    name: api_key
-    in: header
+      'write:print': modify print in your account
+      'read:print': read your print
 definitions:
   TemplateQuery:
     type: object
