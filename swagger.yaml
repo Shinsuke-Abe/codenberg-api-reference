@@ -62,6 +62,12 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: template_id
+          in: path
+          description: テンプレートのIDを指定します。
+          required: true
+          type: integer
+          format: int64
         - name: body
           in: body
           description: 結果に含まれる条件を指定します。
@@ -119,6 +125,13 @@ paths:
       operationId: getTemplatePreview
       produces:
         - application/json
+      parameters:
+        - name: template_preview_id
+          in: path
+          description: プレビューのIDを指定
+          required: true
+          type: integer
+          format: int64
       responses:
         '200':
           description: OK
@@ -168,6 +181,13 @@ paths:
       operationId: getFormatById
       produces:
         - application/json
+      parameters:
+        - name: format_id
+          in: path
+          description: フォーマットのIDを指定
+          required: true
+          type: integer
+          format: int64
       responses:
         '200':
           description: OK
@@ -243,6 +263,13 @@ paths:
       operationId: getOrderById
       produces:
         - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 注文のIDを指定します。
+          required: true
+          type: integer
+          format: int64
       responses:
         '200':
           description: OK
@@ -266,6 +293,19 @@ paths:
       operationId: getDeliveryStatus
       produces:
         - application/json
+      parameters:
+        - name: order_group_id
+          in: path
+          description: 注文のグループIDを指定します
+          required: true
+          type: integer
+          format: int64
+        - name: order_id
+          in: path
+          description: 注文Idを指定します
+          required: true
+          type: integer
+          format: int64
       responses:
         '200':
           description: OK
@@ -292,6 +332,18 @@ paths:
       produces:
         - application/json
       parameters:
+        - name: order_group_id
+          in: path
+          description: 注文のグループIDを指定します
+          required: true
+          type: integer
+          format: int64
+        - name: order_id
+          in: path
+          description: 注文Idを指定します
+          required: true
+          type: integer
+          format: int64
         - in: body
           name: body
           description: 配送先の変更内容を指定します。
@@ -321,6 +373,13 @@ paths:
       operationId: getCancelStatus
       produces:
         - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 注文のIDを指定します。
+          required: true
+          type: integer
+          format: int64
       responses:
         '200':
           description: OK
@@ -344,6 +403,13 @@ paths:
       operationId: cancelOrder
       produces:
         - application/json
+      parameters:
+        - name: id
+          in: path
+          description: 注文のIDを指定します。
+          required: true
+          type: integer
+          format: int64
       responses:
         '200':
           description: OK
@@ -391,6 +457,13 @@ paths:
       operationId: getMediaById
       produces:
         - application/json
+      parameters:
+        - name: media_id
+          in: path
+          description: 取得するメディアIDを指定します
+          required: true
+          type: integer
+          format: int64
       responses:
         '200':
           description: OK
