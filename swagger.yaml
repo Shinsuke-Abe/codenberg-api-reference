@@ -52,7 +52,7 @@ paths:
         - codenberg_auth:
           - 'write:print'
           - 'read:print'
-  '/templates/{template_id}'
+  '/templates/{template_id}':
     get:
       tags:
         - templates
