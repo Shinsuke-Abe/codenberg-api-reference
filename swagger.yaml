@@ -340,6 +340,27 @@ paths:
             $ref: '#/definitions/StatusAndMessage'
         '422':
           description: 入力が受け付けられない場合
+  /media:
+    get:
+      tags:
+        - media
+      summary: Get media list
+      description: 登録されているメディアの一覧を返します。
+      operationId: getMedia
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: メディアの検索条件を指定します。
+          required: true
+          schema:
+            $ref: '#/definitions/MediaRequest'
+      reponses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/MediaList'
   /user/createWithArray:
     post:
       tags:
@@ -1114,6 +1135,76 @@ definitions:
         type: date-time
       updated_at:
         type: date-time
+  MediaRequest:
+    type: object
+    properties:
+      q:
+        type: string
+        description: 指定して文字でファイル名を対象に検索します。
+      sort:
+        type: string
+        description: 並び順の基準とする項目を指定します。
+        enum: 
+          - id
+          - name
+          - created_at
+        default: id
+      direction:
+        type: string
+        description: 項目の並び順を指定します。
+        enum:
+          - asc
+          - desc
+        default: desc
+      per_page:
+        type: integer
+        format: int64
+        description: 1ページあたりの取得項目数。最大50件
+        default: 10
+      page:
+        type: integer
+        format: int64
+        description: ページ番号を指定します。
+        default: 1
+  MediaList:
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int64
+      page:
+        type: integer
+        format: int64
+      per_page:
+        type: integer
+        format: int64
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/MediaDetail'
+  MediaDetail:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      file:
+        type: string
+      thumb:
+        type: array
+        items:
+          $ref: '#/definitions/MediaThumbnail'
+      created_at:
+        type: date-time
+  MediaThumbnail:
+    type: object
+    properties:
+      default:
+        type: string
+      square:
+        type: string
   Pet:
     type: object
     required:
