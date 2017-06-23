@@ -273,6 +273,33 @@ paths:
             $ref: '#/definitions/DeliveryAddressChangeableStatus'
         '422':
           description: 入力が受け付けられない場合
+  '/orders/{order_group_id}/order/{order_id}':
+    post:
+      tags:
+        - orders
+      summary: Change delivery address
+      description: >-
+        配送先変更を行います。
+        配送先の変更は指定したパラメータのみ、行うことが可能です。指定できるパラメータは下記を参照して下さい。
+        パラメータ内の値の形式・制約などについては「注文作成-シングル」のパラメータと同様です。 
+        注文の配送先変更は印刷ステータスが「印刷待ち」「印刷中」まで受け付けています。
+        印刷ステータスについては「[印刷ステータスについて](https://github.com/friday-night/codenberg-api-reference/wiki/%E5%8D%B0%E5%88%B7%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)」を参照してください。
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 配送先の変更内容を指定します。
+          required: true
+          schema:
+            $ref: '#/definitions/ChangeDeliveryAddressRequest'
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/definitions/ChangeDeliveryAddressResponse'
+          '422':
+            description: 入力が受け付けられない場合
   /user/createWithArray:
     post:
       tags:
@@ -900,7 +927,7 @@ definitions:
         type: string
       name:
         type: string
-      pre:
+      pref:
         $ref: '#/definitions/Prefecture'
       postal_code:
         type: string
@@ -949,7 +976,7 @@ definitions:
       name:
         type: string
         description: 宛名
-      pre:
+      pref:
         type: string
         desciption: 都道府県名または都道府県id
       postal_code:
@@ -982,6 +1009,71 @@ definitions:
         type: boolean
       message:
         type: string
+  ChangeDeliveryAddressRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 宛名
+      pref:
+        type: string
+        desciption: 都道府県名または都道府県id
+      postal_code:
+        type: string
+        description: 郵便番号
+      city:
+        type: string
+        description: 市区町村
+      address_line1:
+        type: string
+        description: 番地
+      address_line2:
+        type: string
+        description: 建物名
+      organization:
+        type: string
+        description: 組織名
+      tel:
+        type: string
+        description: 連絡先電話番号
+  ChangeDeliveryAddressResponse:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      display_id:
+        type: string
+      name:
+        type: string
+      pref:
+        $ref: '#/definitions/Prefecture'
+      postal_code:
+        type: string
+      city:
+        type: string
+      address_line1:
+        type: string
+      address_line2:
+        type: string
+      organization:
+        type: string
+      tel:
+        type: string
+      order_number:
+        type: integer
+        format: int64
+      template_id:
+        type: integer
+        format: int64
+      status:
+        type: string
+      payment_status:
+        type: string
+      created_at:
+        type: date-time
+      updated_at:
+        type: date-time
   Pet:
     type: object
     required:
