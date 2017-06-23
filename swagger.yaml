@@ -379,6 +379,20 @@ paths:
             $ref: '#/definitions/MediaDetail'
         '400':
           description: 入力が受け付けられない場合
+  /prefectures:
+    get:
+      tags:
+        - prefectures
+      summary: Get prefectures list
+      description: コーデンベルクで扱うことができる都道府県の県名とコードの一覧を返します。
+      operationId: getPrefectures
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Prefecture'
   /user/createWithArray:
     post:
       tags:
