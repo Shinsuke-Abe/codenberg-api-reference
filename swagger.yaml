@@ -356,11 +356,27 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/MediaRequest'
-      reponses:
+      responses:
         '200':
           description: OK
           schema:
             $ref: '#/definitions/MediaList'
+        '400':
+          description: 入力が受け付けられない場合
+  '/media/{media_id}':
+    get:
+      tags:
+        - media
+      summary: Get media information by ID
+      description: 登録されているメディアの詳細を返します。
+      operationId: getMediaById
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/MediaDetail'
         '400':
           description: 入力が受け付けられない場合
   /user/createWithArray:
