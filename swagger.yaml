@@ -940,6 +940,8 @@ definitions:
         format: int64
       orders:
         type: array
+        items:
+          $ref: '#/definitions/OrderDetail'
   OrderDetail:
     type: object
     properties:
