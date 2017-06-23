@@ -706,7 +706,7 @@ definitions:
         default: false
   PreviewRequest:
     type: object
-    propreties:
+    properties:
       template_id:
         type: string
         description: テンプレートID
